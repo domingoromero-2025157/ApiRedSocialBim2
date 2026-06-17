@@ -1,22 +1,11 @@
 {
   "name": "ApiRedSocialBim2",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
+    "dev": "tsx src/menu.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.5.1",
-      "onFail": "download"
-    }
-  },
-  "type": "module",
   "devDependencies": {
     "@types/node": "^25.9.3",
     "ts-node": "^10.9.2",
