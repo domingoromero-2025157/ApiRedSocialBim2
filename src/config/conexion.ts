@@ -1,21 +1,22 @@
 import mysql from 'mysql2/promise';
 
 export const connection = mysql.createPool({
-  host: process.env.db_host ?? 'localhost',
-  user: process.env.db_user ?? 'root',
-  password: process.env.db_password ?? '',
-  database: process.env.db_name ?? 'red_social_musica_inc5m',
-  port: Number(process.env.db_port ?? 3306),
-  waitforconnections: true,
-  connectionlimit: 10,
+  host: 'localhost',
+  user: 'root', // Cambia por tu usuario de MySQL si es diferente
+  password: 'da19070809Ale159753', // Cambia por tu contraseña de MySQL
+  database: 'red_social_musica_in5cm', // Pon aquí el nombre exacto de tu BD
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 });
 
-export async function verificarconexion(): Promise<void> {
-  const conexion = await connection.getconnection();
+export async function verificarConexion(): Promise<void> {
   try {
-    await conexion.ping();
-    console.log('conexión a la base de datos establecida correctamente.');
-  } finally {
-    conexion.release();
+    const conn = await connection.getConnection();
+    console.log('Conexión a MySQL establecida correctamente.');
+    conn.release();
+  } catch (error) {
+    console.error('Error al conectar con la base de datos MySQL:', error);
+    process.exit(1);
   }
 }
