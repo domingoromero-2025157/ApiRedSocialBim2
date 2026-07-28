@@ -1,5 +1,5 @@
-import { connection } from '../config/database.js';
-import { Instrumento } from '../models/Instrumento.js';
+import { connection } from '../config/conexion.js';
+import { Instrumento } from '../Model/Instrumento.js';
 
 export class InstrumentoRepository {
   async obtenerTodos(): Promise<Instrumento[]> {

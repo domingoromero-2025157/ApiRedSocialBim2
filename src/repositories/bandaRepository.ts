@@ -1,5 +1,5 @@
-import { connection } from '../config/database.js';
-import { Banda } from '../models/Banda.js';
+import { connection } from '../config/conexion.js';
+import { Banda } from '../Model/Banda.js';
 
 export class BandaRepository {
   async obtenerTodas(): Promise<Banda[]> {

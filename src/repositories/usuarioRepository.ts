@@ -1,33 +1,34 @@
-import { connection } from '../config/database.js';
-import { Usuario } from '../models/Usuario.js';
+import { connection } from '../config/conexion.js';
+import { usuario } from '../Model/Usuario.js';
 
 export class UsuarioRepository {
-  async obtenerTodos(): Promise<Usuario[]> {
-    const [rows]: any = await connection.query('call sp_leer_usuarios()');
+  async obtenerTodos(): Promise<usuario[]> {
+    const [rows]: any = await connection.query('CALL sp_leer_usuarios()');
     return rows[0];
   }
 
-  async buscarPorId(id: number): Promise<Usuario | null> {
-    const [rows]: any = await connection.query('call sp_buscar_usuario(?)', [id]);
+  async buscarPorId(id: number): Promise<usuario | null> {
+    const [rows]: any = await connection.query('CALL sp_buscar_usuario(?)', [id]);
     const resultados = rows[0];
     return resultados.length > 0 ? resultados[0] : null;
   }
 
-  async crear(usuario: Usuario): Promise<void> {
-    const { email, password, biografia, ciudad, foto_perfil, fecha_registro } = usuario;
-    await connection.query('call sp_crear_usuario(?, ?, ?, ?, ?, ?)', [
+  async crear(usuario: usuario): Promise<void> {
+    const { email, password, biografia, ciudad, foto_perfil } = usuario;
+    const fecha_registro = new Date();
+    await connection.query('CALL sp_crear_usuario(?, ?, ?, ?, ?, ?)', [
       email,
       password,
       biografia,
       ciudad,
       foto_perfil,
-      fecha_registro ?? new Date(),
+      fecha_registro,
     ]);
   }
 
-  async actualizar(id: number, usuario: Usuario): Promise<void> {
+  async actualizar(id: number, usuario: usuario): Promise<void> {
     const { email, password, biografia, ciudad, foto_perfil } = usuario;
-    await connection.query('call sp_actualizar_usuario(?, ?, ?, ?, ?, ?)', [
+    await connection.query('CALL sp_actualizar_usuario(?, ?, ?, ?, ?, ?)', [
       id,
       email,
       password,
@@ -38,6 +39,6 @@ export class UsuarioRepository {
   }
 
   async eliminar(id: number): Promise<void> {
-    await connection.query('call sp_eliminar_usuario(?)', [id]);
+    await connection.query('CALL sp_eliminar_usuario(?)', [id]);
   }
 }

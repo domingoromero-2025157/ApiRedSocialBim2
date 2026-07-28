@@ -1,5 +1,5 @@
-import { connection } from '../config/database.js';
-import { GeneroMusical } from '../models/GeneroMusical.js';
+import { connection } from '../config/conexion.js';
+import { GeneroMusical } from '../Model/GeneroMusical.js';
 
 export class GeneroMusicalRepository {
   async obtenerTodos(): Promise<GeneroMusical[]> {
